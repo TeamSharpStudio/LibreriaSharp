@@ -1,5 +1,5 @@
 # Por hacer
-- [X] Hacer privado comprobarDNI
+- [ ] Hacer privado comprobarDNI
 - [ ] Validar introducirCadena string nombre (solo letras)
 - [ ] Nueva función para validar fecha
 - [ ] Añadir diferentes namespace
