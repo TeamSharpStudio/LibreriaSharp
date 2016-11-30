@@ -1,2 +1,2 @@
 ## Funciones extendidas para C#
-*Por @sergiolucenafdz y @sirdan32*
+*Por Sergio Lucena Fernández y Daniel Ramírez Sánchez*
