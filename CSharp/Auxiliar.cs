@@ -7,13 +7,13 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 /*
- * Title: Librería de Utilizades Auxiliares
- * Abbvreb: L.U.A.
- * Author: Sergio Lucena Fernández, Daniel Ramírez Sánchez
- * ver: 0.8
+ * Repositorio GitHub: https://github.com/TeamSharpStudio/LibreriaSharp
+ * Usuarios: Sergio Lucena Fernández: https://github.com/SergioLucenaFdz, Daniel Ramírez Sánchez: https://github.com/sirdan93
+ * Equipo: https://github.com/TeamSharpStudio
  */
 
-namespace Practica1
+namespace auxiliar
+
 {
 
     #region Funciones comunes estáticas
@@ -344,13 +344,13 @@ namespace Practica1
 
         #endregion
 
-        #region Funcion salir del programa (Comunes)
+        #region Funciones de salida del programa (Comunes)
 
-        public bool salir()
+        public bool salir(string pregunta)
         {
             string respuesta;
             Console.ForegroundColor = ConsoleColor.Gray;
-            Console.WriteLine("\n¿Quieres hacer otra operación(s)?: ");
+            Console.WriteLine("\n{0}: ", pregunta);
             respuesta = Console.ReadLine().ToLower();
             switch (respuesta)
             {
@@ -364,11 +364,18 @@ namespace Practica1
 
         #endregion
 
-        #region Función sonido consola (Comunes)
+        #region Funciones de sonido consola (Comunes)
 
-        public static void sonido() {
-            Console.Beep(), Console.Beep(), Console.Beep();
-            Console.WriteLine("La televisión está apagada");
+        public static void emitirUnPitido(string mensaje)
+        {
+            Console.Beep();
+            Console.WriteLine(mensaje);
+        }
+
+        public static void emitirTresPitidos(string mensaje)
+        {
+            Console.Beep(); Console.Beep(); Console.Beep();
+            Console.WriteLine(mensaje);
         }
 
         #endregion
@@ -515,6 +522,7 @@ namespace Practica1
     #endregion
 
     #endregion
+
     #region Bases de Datos
     public abstract class BaseDeDatos
     {
@@ -559,9 +567,9 @@ namespace Practica1
         public abstract List<ArrayList> devuelveTodasLasTablas();
 
     } // Clase para crear Bases de Datos Nuevas
-
+    
     public class BaseDeDatosBiblioteca : BaseDeDatos
-    {
+    {/*
         #region Tablas de la biblioteca
         ArrayList libros;
         ArrayList librosVol;
@@ -732,7 +740,7 @@ namespace Practica1
             return base.BD;
         }
 
-    } // Base de datos de la biblioteca
+    */} // Base de datos de la biblioteca (Comentada)
     #endregion
 
 }
