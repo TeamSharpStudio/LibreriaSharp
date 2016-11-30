@@ -233,6 +233,348 @@ namespace auxiliar
             return Math.Abs(Convert.ToInt32(cadena));
         }
 
+                #region DoublePositivo (Comunes)
+
+        public static double leerDoublePositivo(string mensaje)
+        {
+            string cadena;
+            bool cadenaOk = false;
+
+            #region Validación del mensaje
+
+            do
+            {
+                Console.Write("{0}: ", mensaje);
+                cadena = Console.ReadLine();
+                if (cadena.Equals(""))
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("El numero no puede estar vacío.");
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    cadenaOk = false;
+                }
+
+                #region Convertir a entero
+
+                try
+                {
+                    Convert.ToDouble(cadena);
+                    cadenaOk = true;
+                }
+                catch (FormatException)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("El valor debe de ser numérico.");
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    cadenaOk = false;
+                }
+                catch (OverflowException)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("El valor es demasiado grande.");
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    cadenaOk = false;
+                }
+
+                #endregion Convertir a entero
+            } while (!cadenaOk);
+
+            #endregion Validación del mensaje
+
+            return Math.Abs(Convert.ToDouble(cadena));
+        }
+
+        public static double leerDoublePositivo(string mensaje, double min, double max)
+        {
+            string cadena;
+            bool cadenaOk = false;
+
+            #region Validación del mensaje
+
+            do
+            {
+                Console.Write("{0}: ", mensaje);
+                cadena = Console.ReadLine();
+                if (cadena.Equals(""))
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("El numero no puede estar vacío.");
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    cadenaOk = false;
+                }
+
+                #region Convertir a entero
+
+                try
+                {
+                    Convert.ToDouble(cadena);
+                    if (Convert.ToInt32(cadena) >= min && Convert.ToDouble(cadena) <= max)
+                    {
+                        cadenaOk = true;
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("El valor debe de estar comprendido entre {0} y {1}.", min, max);
+                        Console.ForegroundColor = ConsoleColor.Gray;
+                        cadenaOk = false;
+                    }
+                }
+                catch (FormatException)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("El valor debe de ser numérico.");
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    cadenaOk = false;
+                }
+                catch (OverflowException)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("El valor es demasiado grande.");
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    cadenaOk = false;
+                }
+
+                #endregion Convertir a entero
+            } while (!cadenaOk);
+
+            #endregion Validación del mensaje
+
+            return Math.Abs(Convert.ToDouble(cadena));
+        }
+
+        public static double leerDoublePositivo(string mensaje, double min, double max, string mensajeDeError)
+        {
+            string cadena;
+            bool cadenaOk = false;
+
+            #region Validación del mensaje
+
+            do
+            {
+                Console.Write("{0}: ", mensaje);
+                cadena = Console.ReadLine();
+                if (cadena.Equals(""))
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("El numero no puede estar vacío");
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    cadenaOk = false;
+                }
+
+                #region Convertir a entero
+
+                try
+                {
+                    Convert.ToDouble(cadena);
+                    if (Convert.ToInt32(cadena) >= min && Convert.ToDouble(cadena) <= max)
+                    {
+                        cadenaOk = true;
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("{0}; Las opciones van del {1} al {2}.", mensajeDeError, min, max);
+                        Console.ForegroundColor = ConsoleColor.Gray;
+                        cadenaOk = false;
+                    }
+                }
+                catch (FormatException)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("El valor debe de ser numérico.");
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    cadenaOk = false;
+                }
+                catch (OverflowException)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("El valor es demasiado grande.");
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    cadenaOk = false;
+                }
+
+                #endregion Convertir a entero
+            } while (!cadenaOk);
+
+            #endregion Validación del mensaje
+
+            return Math.Abs(Convert.ToDouble(cadena));
+        }
+        
+        #endregion
+
+                #region BytePositivo (Comunes)
+
+        public static byte leerBytePositivo(string mensaje)
+        {
+            string cadena;
+            bool cadenaOk = false;
+
+            #region Validación del mensaje
+
+            do
+            {
+                Console.Write("{0}: ", mensaje);
+                cadena = Console.ReadLine();
+                if (cadena.Equals(""))
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("El numero no puede estar vacío.");
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    cadenaOk = false;
+                }
+
+                #region Convertir a entero
+
+                try
+                {
+                    Convert.ToByte(cadena);
+                    cadenaOk = true;
+                }
+                catch (FormatException)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("El valor debe de ser numérico.");
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    cadenaOk = false;
+                }
+                catch (OverflowException)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("El valor es demasiado grande.");
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    cadenaOk = false;
+                }
+
+                #endregion Convertir a entero
+            } while (!cadenaOk);
+
+            #endregion Validación del mensaje
+
+            return Convert.ToByte(cadena);
+        }
+
+        public static byte leerBytePositivo(string mensaje, byte min, byte max)
+        {
+            string cadena;
+            bool cadenaOk = false;
+
+            #region Validación del mensaje
+
+            do
+            {
+                Console.Write("{0}: ", mensaje);
+                cadena = Console.ReadLine();
+                if (cadena.Equals(""))
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("El numero no puede estar vacío.");
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    cadenaOk = false;
+                }
+
+                #region Convertir a entero
+
+                try
+                {
+                    Convert.ToByte(cadena);
+                    if (Convert.ToByte(cadena) >= min && Convert.ToByte(cadena) <= max)
+                    {
+                        cadenaOk = true;
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("El valor debe de estar comprendido entre {0} y {1}.", min, max);
+                        Console.ForegroundColor = ConsoleColor.Gray;
+                        cadenaOk = false;
+                    }
+                }
+                catch (FormatException)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("El valor debe de ser numérico.");
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    cadenaOk = false;
+                }
+                catch (OverflowException)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("El valor es demasiado grande.");
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    cadenaOk = false;
+                }
+
+                #endregion Convertir a entero
+            } while (!cadenaOk);
+
+            #endregion Validación del mensaje
+
+            return Convert.ToByte(cadena);
+        }
+
+        public static byte leerBytePositivo(string mensaje, byte min, byte max, string mensajeDeError)
+        {
+            string cadena;
+            bool cadenaOk = false;
+
+            #region Validación del mensaje
+
+            do
+            {
+                Console.Write("{0}: ", mensaje);
+                cadena = Console.ReadLine();
+                if (cadena.Equals(""))
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("El numero no puede estar vacío");
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    cadenaOk = false;
+                }
+
+                #region Convertir a entero
+
+                try
+                {
+                    Convert.ToByte(cadena);
+                    if (Convert.ToByte(cadena) >= min && Convert.ToByte(cadena) <= max)
+                    {
+                        cadenaOk = true;
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("{0}; Las opciones van del {1} al {2}.", mensajeDeError, min, max);
+                        Console.ForegroundColor = ConsoleColor.Gray;
+                        cadenaOk = false;
+                    }
+                }
+                catch (FormatException)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("El valor debe de ser numérico.");
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    cadenaOk = false;
+                }
+                catch (OverflowException)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("El valor es demasiado grande.");
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    cadenaOk = false;
+                }
+
+                #endregion Convertir a entero
+            } while (!cadenaOk);
+
+            #endregion Validación del mensaje
+
+            return Convert.ToByte(cadena);
+        }
+
+        #endregion
+            
         public static string leerDni(string mensaje)
         {
             string cadena;
@@ -296,7 +638,7 @@ namespace auxiliar
 
         #region Funciones de comprobación (Comunes)
 
-        public static bool comprobarDNI(string dni)
+        private static bool comprobarDNI(string dni)
         {
             if (Regex.Match(dni.Trim(), @"^[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][a-zA-Z]$").Success)
             {
