@@ -12,1077 +12,1185 @@ using System.Threading.Tasks;
  * Equipo: https://github.com/TeamSharpStudio
  */
 
-namespace auxiliar
+namespace LibreriaSharp
 
 {
 
     #region Funciones comunes estáticas
-    public static class Auxiliar
+    namespace Comunes
     {
-        #region Funciones de entrada por teclado (Comunes)
-
-        public static string leerCadena(string mensaje)
+        public static class Auxiliar
         {
-            string cadena;
-            bool cadenaOk = false;
-            #region Validación del mensaje
-            do
+            #region Funciones de entrada por teclado (Comunes)
+
+            #region String
+            public static string leerCadena(string mensaje)
             {
-                Console.Write("{0}: ", mensaje);
-                cadena = Console.ReadLine();
-                if (cadena.Equals(""))
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Tienes que introducir un valor.");
-                    Console.ForegroundColor = ConsoleColor.Gray;
-                    cadenaOk = false;
-                }
-                else
-                {
-                    cadenaOk = true;
-                }
-            } while (!cadenaOk);
-            #endregion
-
-            return cadena;
-        }
-
-        public static ArrayList leerCadenaCrearLista(string mensaje, string elementoLista)
-        {
-            string cadena;
-            int tamaño;
-            ArrayList listaDePalabras = new ArrayList();
-            bool cadenaOk = false;
-
-            tamaño = leerEnteroPositivo("\t" + mensaje);
-            #region Validación del mensaje
-            for (int i = 0; i < tamaño; i++)
-            {
+                string cadena;
+                bool cadenaOk = false;
+                #region Validación del mensaje
                 do
                 {
-                    Console.Write("\t\tIntroduce el {0} nº {1}: ", elementoLista, i + 1);
+                    Console.Write("{0}: ", mensaje);
                     cadena = Console.ReadLine();
                     if (cadena.Equals(""))
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("Tienes que introducir un valor.");
-                        Console.ForegroundColor = ConsoleColor.Gray;
+                        Console.ResetColor();
                         cadenaOk = false;
                     }
                     else
                     {
-                        listaDePalabras.Add(cadena);
                         cadenaOk = true;
                     }
                 } while (!cadenaOk);
+                #endregion
+
+                return cadena;
+            }
+
+            public static string leerCadenaSoloLetras(string mensaje)
+            {
+                string cadena;
+                bool cadenaOk = false;
+                #region Validación del mensaje
+                do
+                {
+                    Console.Write("{0}: ", mensaje);
+                    cadena = Console.ReadLine();
+                    if (cadena.Equals(""))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Tienes que introducir un valor.");
+                        Console.ResetColor();
+                        cadenaOk = false;
+                    }
+                    else
+                    {
+                        
+                        if (Regex.IsMatch(cadena, @"^[a-zA-Z]+$"))
+                        {
+                            cadenaOk = true;
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("El formato no es correcto, el valor solo puede contener letras");
+                            Console.ResetColor();
+                            cadenaOk = false;
+                        }
+                    }
+                } while (!cadenaOk);
+                #endregion
+
+                return cadena;
+            }
+
+            public static string leerCadenaSoloAlfanumericos(string mensaje)
+            {
+                string cadena;
+                bool cadenaOk = false;
+                #region Validación del mensaje
+                do
+                {
+                    Console.Write("{0}: ", mensaje);
+                    cadena = Console.ReadLine();
+                    if (cadena.Equals(""))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Tienes que introducir un valor.");
+                        Console.ResetColor();
+                        cadenaOk = false;
+                    }
+                    else
+                    {
+
+                        if (Regex.IsMatch(cadena, @"^[a-zA-Z0-9]+$"))
+                        {
+                            cadenaOk = true;
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("El formato no es correcto, el valor solo puede contener letras y números");
+                            Console.ResetColor();
+                            cadenaOk = false;
+                        }
+                    }
+                } while (!cadenaOk);
+                #endregion
+
+                return cadena;
             }
             #endregion
 
-            return listaDePalabras;
-        }
-
-        public static int leerEnteroPositivo(string mensaje)
-        {
-            string cadena;
-            bool cadenaOk = false;
-            #region Validación del mensaje
-            do
+            #region ArrayList
+            public static ArrayList leerCadenaCrearLista(string mensaje, string elementoLista)
             {
-                Console.Write("{0}: ", mensaje);
-                cadena = Console.ReadLine();
-                if (cadena.Equals(""))
+                string cadena;
+                int tamaño;
+                ArrayList listaDePalabras = new ArrayList();
+                bool cadenaOk = false;
+
+                tamaño = leerEnteroPositivo("\t" + mensaje);
+                #region Validación del mensaje
+                for (int i = 0; i < tamaño; i++)
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("El numero no puede estar vacío.");
-                    Console.ForegroundColor = ConsoleColor.Gray;
-                    cadenaOk = false;
-                }
-                #region Convertir a entero
-                try
-                {
-                    Convert.ToInt32(cadena);
-                    cadenaOk = true;
-                }
-                catch (FormatException)
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("El valor debe de ser numérico.");
-                    Console.ForegroundColor = ConsoleColor.Gray;
-                    cadenaOk = false;
-                }
-                catch (OverflowException)
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("El valor es demasiado grande.");
-                    Console.ForegroundColor = ConsoleColor.Gray;
-                    cadenaOk = false;
+                    do
+                    {
+                        Console.Write("\t\tIntroduce el {0} nº {1}: ", elementoLista, i + 1);
+                        cadena = Console.ReadLine();
+                        if (cadena.Equals(""))
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("Tienes que introducir un valor.");
+                            Console.ResetColor();
+                            cadenaOk = false;
+                        }
+                        else
+                        {
+                            listaDePalabras.Add(cadena);
+                            cadenaOk = true;
+                        }
+                    } while (!cadenaOk);
                 }
                 #endregion
 
-            } while (!cadenaOk);
+                return listaDePalabras;
+            }
             #endregion
 
-            return Math.Abs(Convert.ToInt32(cadena));
-        }
-
-        public static int leerEnteroPositivo(string mensaje, int min, int max)
-        {
-            string cadena;
-            bool cadenaOk = false;
-            #region Validación del mensaje
-            do
+            #region Entero Positivo
+            public static int leerEnteroPositivo(string mensaje)
             {
-                Console.Write("{0}: ", mensaje);
-                cadena = Console.ReadLine();
-                if (cadena.Equals(""))
+                string cadena;
+                bool cadenaOk = false;
+                #region Validación del mensaje
+                do
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("El numero no puede estar vacío.");
-                    Console.ForegroundColor = ConsoleColor.Gray;
-                    cadenaOk = false;
-                }
-                #region Convertir a entero
-                try
-                {
-                    Convert.ToInt32(cadena);
-                    if (Convert.ToInt32(cadena) >= min && Convert.ToInt32(cadena) <= max)
-                    {
-                        cadenaOk = true;
-                    }
-                    else
+                    Console.Write("{0}: ", mensaje);
+                    cadena = Console.ReadLine();
+                    if (cadena.Equals(""))
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("El valor debe de estar comprendido entre {0} y {1}.", min, max);
-                        Console.ForegroundColor = ConsoleColor.Gray;
+                        Console.WriteLine("El numero no puede estar vacío.");
+                        Console.ResetColor();
                         cadenaOk = false;
                     }
-                }
-                catch (FormatException)
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("El valor debe de ser numérico.");
-                    Console.ForegroundColor = ConsoleColor.Gray;
-                    cadenaOk = false;
-                }
-                catch (OverflowException)
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("El valor es demasiado grande.");
-                    Console.ForegroundColor = ConsoleColor.Gray;
-                    cadenaOk = false;
-                }
+                    #region Convertir a entero
+                    try
+                    {
+                        Convert.ToInt32(cadena);
+                        cadenaOk = true;
+                    }
+                    catch (FormatException)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("El valor debe de ser numérico.");
+                        Console.ResetColor();
+                        cadenaOk = false;
+                    }
+                    catch (OverflowException)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("El valor es demasiado grande.");
+                        Console.ResetColor();
+                        cadenaOk = false;
+                    }
+                    #endregion
+
+                } while (!cadenaOk);
                 #endregion
 
-            } while (!cadenaOk);
-            #endregion
+                return Math.Abs(Convert.ToInt32(cadena));
+            }
 
-            return Math.Abs(Convert.ToInt32(cadena));
-        }
-
-        public static int leerEnteroPositivo(string mensaje, int min, int max, string mensajeDeError)
-        {
-            string cadena;
-            bool cadenaOk = false;
-            #region Validación del mensaje
-            do
+            public static int leerEnteroPositivo(string mensaje, int min, int max)
             {
-                Console.Write("{0}: ", mensaje);
-                cadena = Console.ReadLine();
-                if (cadena.Equals(""))
+                string cadena;
+                bool cadenaOk = false;
+                #region Validación del mensaje
+                do
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("El numero no puede estar vacío");
-                    Console.ForegroundColor = ConsoleColor.Gray;
-                    cadenaOk = false;
-                }
-                #region Convertir a entero
-                try
-                {
-                    Convert.ToInt32(cadena);
-                    if (Convert.ToInt32(cadena) >= min && Convert.ToInt32(cadena) <= max)
-                    {
-                        cadenaOk = true;
-                    }
-                    else
+                    Console.Write("{0}: ", mensaje);
+                    cadena = Console.ReadLine();
+                    if (cadena.Equals(""))
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("{0}; Las opciones van del {1} al {2}.", mensajeDeError, min, max);
-                        Console.ForegroundColor = ConsoleColor.Gray;
+                        Console.WriteLine("El numero no puede estar vacío.");
+                        Console.ResetColor();
                         cadenaOk = false;
                     }
-                }
-                catch (FormatException)
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("El valor debe de ser numérico.");
-                    Console.ForegroundColor = ConsoleColor.Gray;
-                    cadenaOk = false;
-                }
-                catch (OverflowException)
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("El valor es demasiado grande.");
-                    Console.ForegroundColor = ConsoleColor.Gray;
-                    cadenaOk = false;
-                }
+                    #region Convertir a entero
+                    try
+                    {
+                        Convert.ToInt32(cadena);
+                        if (Convert.ToInt32(cadena) >= min && Convert.ToInt32(cadena) <= max)
+                        {
+                            cadenaOk = true;
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("El valor debe de estar comprendido entre {0} y {1}.", min, max);
+                            Console.ResetColor();
+                            cadenaOk = false;
+                        }
+                    }
+                    catch (FormatException)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("El valor debe de ser numérico.");
+                        Console.ResetColor();
+                        cadenaOk = false;
+                    }
+                    catch (OverflowException)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("El valor es demasiado grande.");
+                        Console.ResetColor();
+                        cadenaOk = false;
+                    }
+                    #endregion
+
+                } while (!cadenaOk);
                 #endregion
 
-            } while (!cadenaOk);
+                return Math.Abs(Convert.ToInt32(cadena));
+            }
+
+            public static int leerEnteroPositivo(string mensaje, int min, int max, string mensajeDeError)
+            {
+                string cadena;
+                bool cadenaOk = false;
+                #region Validación del mensaje
+                do
+                {
+                    Console.Write("{0}: ", mensaje);
+                    cadena = Console.ReadLine();
+                    if (cadena.Equals(""))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("El numero no puede estar vacío");
+                        Console.ResetColor();
+                        cadenaOk = false;
+                    }
+                    #region Convertir a entero
+                    try
+                    {
+                        Convert.ToInt32(cadena);
+                        if (Convert.ToInt32(cadena) >= min && Convert.ToInt32(cadena) <= max)
+                        {
+                            cadenaOk = true;
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("{0}; Las opciones van del {1} al {2}.", mensajeDeError, min, max);
+                            Console.ResetColor();
+                            cadenaOk = false;
+                        }
+                    }
+                    catch (FormatException)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("El valor debe de ser numérico.");
+                        Console.ResetColor();
+                        cadenaOk = false;
+                    }
+                    catch (OverflowException)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("El valor es demasiado grande.");
+                        Console.ResetColor();
+                        cadenaOk = false;
+                    }
+                    #endregion
+
+                } while (!cadenaOk);
+                #endregion
+
+                return Math.Abs(Convert.ToInt32(cadena));
+            }
             #endregion
 
-            return Math.Abs(Convert.ToInt32(cadena));
-        }
+            #region Double Positivo
 
-                #region DoublePositivo (Comunes)
-
-        public static double leerDoublePositivo(string mensaje)
-        {
-            string cadena;
-            bool cadenaOk = false;
-
-            #region Validación del mensaje
-
-            do
+            public static double leerDoublePositivo(string mensaje)
             {
-                Console.Write("{0}: ", mensaje);
-                cadena = Console.ReadLine();
-                if (cadena.Equals(""))
+                string cadena;
+                bool cadenaOk = false;
+
+                #region Validación del mensaje
+
+                do
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("El numero no puede estar vacío.");
-                    Console.ForegroundColor = ConsoleColor.Gray;
-                    cadenaOk = false;
-                }
-
-                #region Convertir a entero
-
-                try
-                {
-                    Convert.ToDouble(cadena);
-                    cadenaOk = true;
-                }
-                catch (FormatException)
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("El valor debe de ser numérico.");
-                    Console.ForegroundColor = ConsoleColor.Gray;
-                    cadenaOk = false;
-                }
-                catch (OverflowException)
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("El valor es demasiado grande.");
-                    Console.ForegroundColor = ConsoleColor.Gray;
-                    cadenaOk = false;
-                }
-
-                #endregion Convertir a entero
-            } while (!cadenaOk);
-
-            #endregion Validación del mensaje
-
-            return Math.Abs(Convert.ToDouble(cadena));
-        }
-
-        public static double leerDoublePositivo(string mensaje, double min, double max)
-        {
-            string cadena;
-            bool cadenaOk = false;
-
-            #region Validación del mensaje
-
-            do
-            {
-                Console.Write("{0}: ", mensaje);
-                cadena = Console.ReadLine();
-                if (cadena.Equals(""))
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("El numero no puede estar vacío.");
-                    Console.ForegroundColor = ConsoleColor.Gray;
-                    cadenaOk = false;
-                }
-
-                #region Convertir a entero
-
-                try
-                {
-                    Convert.ToDouble(cadena);
-                    if (Convert.ToInt32(cadena) >= min && Convert.ToDouble(cadena) <= max)
-                    {
-                        cadenaOk = true;
-                    }
-                    else
+                    Console.Write("{0}: ", mensaje);
+                    cadena = Console.ReadLine();
+                    if (cadena.Equals(""))
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("El valor debe de estar comprendido entre {0} y {1}.", min, max);
-                        Console.ForegroundColor = ConsoleColor.Gray;
+                        Console.WriteLine("El numero no puede estar vacío.");
+                        Console.ResetColor();
                         cadenaOk = false;
                     }
-                }
-                catch (FormatException)
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("El valor debe de ser numérico.");
-                    Console.ForegroundColor = ConsoleColor.Gray;
-                    cadenaOk = false;
-                }
-                catch (OverflowException)
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("El valor es demasiado grande.");
-                    Console.ForegroundColor = ConsoleColor.Gray;
-                    cadenaOk = false;
-                }
 
-                #endregion Convertir a entero
-            } while (!cadenaOk);
+                    #region Convertir a entero
 
-            #endregion Validación del mensaje
-
-            return Math.Abs(Convert.ToDouble(cadena));
-        }
-
-        public static double leerDoublePositivo(string mensaje, double min, double max, string mensajeDeError)
-        {
-            string cadena;
-            bool cadenaOk = false;
-
-            #region Validación del mensaje
-
-            do
-            {
-                Console.Write("{0}: ", mensaje);
-                cadena = Console.ReadLine();
-                if (cadena.Equals(""))
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("El numero no puede estar vacío");
-                    Console.ForegroundColor = ConsoleColor.Gray;
-                    cadenaOk = false;
-                }
-
-                #region Convertir a entero
-
-                try
-                {
-                    Convert.ToDouble(cadena);
-                    if (Convert.ToInt32(cadena) >= min && Convert.ToDouble(cadena) <= max)
+                    try
                     {
+                        Convert.ToDouble(cadena);
                         cadenaOk = true;
                     }
-                    else
+                    catch (FormatException)
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("{0}; Las opciones van del {1} al {2}.", mensajeDeError, min, max);
-                        Console.ForegroundColor = ConsoleColor.Gray;
+                        Console.WriteLine("El valor debe de ser numérico.");
+                        Console.ResetColor();
                         cadenaOk = false;
                     }
-                }
-                catch (FormatException)
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("El valor debe de ser numérico.");
-                    Console.ForegroundColor = ConsoleColor.Gray;
-                    cadenaOk = false;
-                }
-                catch (OverflowException)
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("El valor es demasiado grande.");
-                    Console.ForegroundColor = ConsoleColor.Gray;
-                    cadenaOk = false;
-                }
-
-                #endregion Convertir a entero
-            } while (!cadenaOk);
-
-            #endregion Validación del mensaje
-
-            return Math.Abs(Convert.ToDouble(cadena));
-        }
-        
-        #endregion
-
-                #region BytePositivo (Comunes)
-
-        public static byte leerBytePositivo(string mensaje)
-        {
-            string cadena;
-            bool cadenaOk = false;
-
-            #region Validación del mensaje
-
-            do
-            {
-                Console.Write("{0}: ", mensaje);
-                cadena = Console.ReadLine();
-                if (cadena.Equals(""))
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("El numero no puede estar vacío.");
-                    Console.ForegroundColor = ConsoleColor.Gray;
-                    cadenaOk = false;
-                }
-
-                #region Convertir a entero
-
-                try
-                {
-                    Convert.ToByte(cadena);
-                    cadenaOk = true;
-                }
-                catch (FormatException)
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("El valor debe de ser numérico.");
-                    Console.ForegroundColor = ConsoleColor.Gray;
-                    cadenaOk = false;
-                }
-                catch (OverflowException)
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("El valor es demasiado grande.");
-                    Console.ForegroundColor = ConsoleColor.Gray;
-                    cadenaOk = false;
-                }
-
-                #endregion Convertir a entero
-            } while (!cadenaOk);
-
-            #endregion Validación del mensaje
-
-            return Convert.ToByte(cadena);
-        }
-
-        public static byte leerBytePositivo(string mensaje, byte min, byte max)
-        {
-            string cadena;
-            bool cadenaOk = false;
-
-            #region Validación del mensaje
-
-            do
-            {
-                Console.Write("{0}: ", mensaje);
-                cadena = Console.ReadLine();
-                if (cadena.Equals(""))
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("El numero no puede estar vacío.");
-                    Console.ForegroundColor = ConsoleColor.Gray;
-                    cadenaOk = false;
-                }
-
-                #region Convertir a entero
-
-                try
-                {
-                    Convert.ToByte(cadena);
-                    if (Convert.ToByte(cadena) >= min && Convert.ToByte(cadena) <= max)
-                    {
-                        cadenaOk = true;
-                    }
-                    else
+                    catch (OverflowException)
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("El valor debe de estar comprendido entre {0} y {1}.", min, max);
-                        Console.ForegroundColor = ConsoleColor.Gray;
+                        Console.WriteLine("El valor es demasiado grande.");
+                        Console.ResetColor();
                         cadenaOk = false;
                     }
-                }
-                catch (FormatException)
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("El valor debe de ser numérico.");
-                    Console.ForegroundColor = ConsoleColor.Gray;
-                    cadenaOk = false;
-                }
-                catch (OverflowException)
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("El valor es demasiado grande.");
-                    Console.ForegroundColor = ConsoleColor.Gray;
-                    cadenaOk = false;
-                }
 
-                #endregion Convertir a entero
-            } while (!cadenaOk);
+                    #endregion Convertir a entero
+                } while (!cadenaOk);
 
-            #endregion Validación del mensaje
+                #endregion Validación del mensaje
 
-            return Convert.ToByte(cadena);
-        }
+                return Math.Abs(Convert.ToDouble(cadena));
+            }
 
-        public static byte leerBytePositivo(string mensaje, byte min, byte max, string mensajeDeError)
-        {
-            string cadena;
-            bool cadenaOk = false;
-
-            #region Validación del mensaje
-
-            do
+            public static double leerDoublePositivo(string mensaje, double min, double max)
             {
-                Console.Write("{0}: ", mensaje);
-                cadena = Console.ReadLine();
-                if (cadena.Equals(""))
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("El numero no puede estar vacío");
-                    Console.ForegroundColor = ConsoleColor.Gray;
-                    cadenaOk = false;
-                }
+                string cadena;
+                bool cadenaOk = false;
 
-                #region Convertir a entero
+                #region Validación del mensaje
 
-                try
+                do
                 {
-                    Convert.ToByte(cadena);
-                    if (Convert.ToByte(cadena) >= min && Convert.ToByte(cadena) <= max)
-                    {
-                        cadenaOk = true;
-                    }
-                    else
+                    Console.Write("{0}: ", mensaje);
+                    cadena = Console.ReadLine();
+                    if (cadena.Equals(""))
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("{0}; Las opciones van del {1} al {2}.", mensajeDeError, min, max);
-                        Console.ForegroundColor = ConsoleColor.Gray;
+                        Console.WriteLine("El numero no puede estar vacío.");
+                        Console.ResetColor();
                         cadenaOk = false;
                     }
-                }
-                catch (FormatException)
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("El valor debe de ser numérico.");
-                    Console.ForegroundColor = ConsoleColor.Gray;
-                    cadenaOk = false;
-                }
-                catch (OverflowException)
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("El valor es demasiado grande.");
-                    Console.ForegroundColor = ConsoleColor.Gray;
-                    cadenaOk = false;
-                }
 
-                #endregion Convertir a entero
-            } while (!cadenaOk);
+                    #region Convertir a entero
 
-            #endregion Validación del mensaje
-
-            return Convert.ToByte(cadena);
-        }
-
-        #endregion
-            
-        public static string leerDni(string mensaje)
-        {
-            string cadena;
-            bool cadenaOk = false;
-            #region Validación del dni
-            do
-            {
-                Console.Write("{0}: ", mensaje);
-                cadena = Console.ReadLine();
-                if (cadena.Equals(""))
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Tienes que introducir un valor en el dni.");
-                    Console.ForegroundColor = ConsoleColor.Gray;
-                    cadenaOk = false;
-                }
-                else if (!comprobarDNI(cadena))
-                {
-                    if (Regex.Match(cadena.Trim(), @"^[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]$").Success)
+                    try
                     {
-                        cadena = calcularLetraDni(cadena);
-                        cadenaOk = true;
+                        Convert.ToDouble(cadena);
+                        if (Convert.ToInt32(cadena) >= min && Convert.ToDouble(cadena) <= max)
+                        {
+                            cadenaOk = true;
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("El valor debe de estar comprendido entre {0} y {1}.", min, max);
+                            Console.ResetColor();
+                            cadenaOk = false;
+                        }
                     }
-                    else
+                    catch (FormatException)
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("El formato del dni no es correcto.");
-                        Console.ForegroundColor = ConsoleColor.Gray;
+                        Console.WriteLine("El valor debe de ser numérico.");
+                        Console.ResetColor();
                         cadenaOk = false;
                     }
-                }
+                    catch (OverflowException)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("El valor es demasiado grande.");
+                        Console.ResetColor();
+                        cadenaOk = false;
+                    }
 
-                else
+                    #endregion Convertir a entero
+                } while (!cadenaOk);
+
+                #endregion Validación del mensaje
+
+                return Math.Abs(Convert.ToDouble(cadena));
+            }
+
+            public static double leerDoublePositivo(string mensaje, double min, double max, string mensajeDeError)
+            {
+                string cadena;
+                bool cadenaOk = false;
+
+                #region Validación del mensaje
+
+                do
                 {
-                    cadenaOk = true;
-                }
-            } while (!cadenaOk);
+                    Console.Write("{0}: ", mensaje);
+                    cadena = Console.ReadLine();
+                    if (cadena.Equals(""))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("El numero no puede estar vacío");
+                        Console.ResetColor();
+                        cadenaOk = false;
+                    }
+
+                    #region Convertir a entero
+
+                    try
+                    {
+                        Convert.ToDouble(cadena);
+                        if (Convert.ToInt32(cadena) >= min && Convert.ToDouble(cadena) <= max)
+                        {
+                            cadenaOk = true;
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("{0}; Las opciones van del {1} al {2}.", mensajeDeError, min, max);
+                            Console.ResetColor();
+                            cadenaOk = false;
+                        }
+                    }
+                    catch (FormatException)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("El valor debe de ser numérico.");
+                        Console.ResetColor();
+                        cadenaOk = false;
+                    }
+                    catch (OverflowException)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("El valor es demasiado grande.");
+                        Console.ResetColor();
+                        cadenaOk = false;
+                    }
+
+                    #endregion Convertir a entero
+                } while (!cadenaOk);
+
+                #endregion Validación del mensaje
+
+                return Math.Abs(Convert.ToDouble(cadena));
+            }
+
             #endregion
 
-            return cadena;
-        }
+            #region Byte Positivo
 
-        #endregion
-
-        #region Funciones de salida por pantalla (Comunes)
-        public void WriteLineColor(string valor, ConsoleColor color)
-        {
-            Console.ForegroundColor = color;
-            Console.WriteLine(valor);
-            Console.ForegroundColor = ConsoleColor.Gray;
-        }
-
-        public void WriteLineColor(string valor, ConsoleColor color, ConsoleColor colorPorDefecto)
-        {
-            Console.ForegroundColor = color;
-            Console.WriteLine(valor);
-            Console.ForegroundColor = colorPorDefecto;
-        }
-
-        #endregion
-
-        #region Funciones de comprobación (Comunes)
-
-        private static bool comprobarDNI(string dni)
-        {
-            if (Regex.Match(dni.Trim(), @"^[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][a-zA-Z]$").Success)
+            public static byte leerBytePositivo(string mensaje)
             {
-                int numeroDni = Convert.ToInt32(dni.Trim().Substring(0, 8));
-                char letraDni = Convert.ToChar(dni.Trim().Substring(8));
-                string juegoCaracteres = "TRWAGMYFPDXBNJZSQVHLCKE";
-                int modulo = numeroDni % 23;
-                char letra = juegoCaracteres[modulo];
-                if (letraDni.Equals(letra))
+                string cadena;
+                bool cadenaOk = false;
+
+                #region Validación del mensaje
+
+                do
                 {
-                    return true;
+                    Console.Write("{0}: ", mensaje);
+                    cadena = Console.ReadLine();
+                    if (cadena.Equals(""))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("El numero no puede estar vacío.");
+                        Console.ResetColor();
+                        cadenaOk = false;
+                    }
+
+                    #region Convertir a entero
+
+                    try
+                    {
+                        Convert.ToByte(cadena);
+                        cadenaOk = true;
+                    }
+                    catch (FormatException)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("El valor debe de ser numérico.");
+                        Console.ResetColor();
+                        cadenaOk = false;
+                    }
+                    catch (OverflowException)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("El valor es demasiado grande.");
+                        Console.ResetColor();
+                        cadenaOk = false;
+                    }
+
+                    #endregion Convertir a entero
+                } while (!cadenaOk);
+
+                #endregion Validación del mensaje
+
+                return Convert.ToByte(cadena);
+            }
+
+            public static byte leerBytePositivo(string mensaje, byte min, byte max)
+            {
+                string cadena;
+                bool cadenaOk = false;
+
+                #region Validación del mensaje
+
+                do
+                {
+                    Console.Write("{0}: ", mensaje);
+                    cadena = Console.ReadLine();
+                    if (cadena.Equals(""))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("El numero no puede estar vacío.");
+                        Console.ResetColor();
+                        cadenaOk = false;
+                    }
+
+                    #region Convertir a entero
+
+                    try
+                    {
+                        Convert.ToByte(cadena);
+                        if (Convert.ToByte(cadena) >= min && Convert.ToByte(cadena) <= max)
+                        {
+                            cadenaOk = true;
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("El valor debe de estar comprendido entre {0} y {1}.", min, max);
+                            Console.ResetColor();
+                            cadenaOk = false;
+                        }
+                    }
+                    catch (FormatException)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("El valor debe de ser numérico.");
+                        Console.ResetColor();
+                        cadenaOk = false;
+                    }
+                    catch (OverflowException)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("El valor es demasiado grande.");
+                        Console.ResetColor();
+                        cadenaOk = false;
+                    }
+
+                    #endregion Convertir a entero
+                } while (!cadenaOk);
+
+                #endregion Validación del mensaje
+
+                return Convert.ToByte(cadena);
+            }
+
+            public static byte leerBytePositivo(string mensaje, byte min, byte max, string mensajeDeError)
+            {
+                string cadena;
+                bool cadenaOk = false;
+
+                #region Validación del mensaje
+
+                do
+                {
+                    Console.Write("{0}: ", mensaje);
+                    cadena = Console.ReadLine();
+                    if (cadena.Equals(""))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("El numero no puede estar vacío");
+                        Console.ResetColor();
+                        cadenaOk = false;
+                    }
+
+                    #region Convertir a entero
+
+                    try
+                    {
+                        Convert.ToByte(cadena);
+                        if (Convert.ToByte(cadena) >= min && Convert.ToByte(cadena) <= max)
+                        {
+                            cadenaOk = true;
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("{0}; Las opciones van del {1} al {2}.", mensajeDeError, min, max);
+                            Console.ResetColor();
+                            cadenaOk = false;
+                        }
+                    }
+                    catch (FormatException)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("El valor debe de ser numérico.");
+                        Console.ResetColor();
+                        cadenaOk = false;
+                    }
+                    catch (OverflowException)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("El valor es demasiado grande.");
+                        Console.ResetColor();
+                        cadenaOk = false;
+                    }
+
+                    #endregion Convertir a entero
+                } while (!cadenaOk);
+
+                #endregion Validación del mensaje
+
+                return Convert.ToByte(cadena);
+            }
+
+            #endregion
+
+            #region Dni
+            public static string leerDni(string mensaje)
+            {
+                string cadena;
+                bool cadenaOk = false;
+                #region Validación del dni
+                do
+                {
+                    Console.Write("{0}: ", mensaje);
+                    cadena = Console.ReadLine();
+                    if (cadena.Equals(""))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Tienes que introducir un valor en el dni.");
+                        Console.ResetColor();
+                        cadenaOk = false;
+                    }
+                    else if (!comprobarDNI(cadena))
+                    {
+                        if (Regex.Match(cadena.Trim(), @"^[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]$").Success)
+                        {
+                            cadena = calcularLetraDni(cadena);
+                            cadenaOk = true;
+                        }
+                        else if (Regex.Match(cadena.Trim(), @"^[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][a-zA-Z]$").Success)
+                        {
+                            cadena = calcularLetraDni(cadena);
+                            cadenaOk = true;
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("El formato del dni no es correcto.");
+                            Console.ResetColor();
+                            cadenaOk = false;
+                        }
+                    }
+                    else
+                    {
+                        cadenaOk = true;
+                    }
+                } while (!cadenaOk);
+                #endregion
+
+                return cadena;
+            }
+            #endregion
+
+            #endregion
+
+            #region Funciones de salida por pantalla (Comunes)
+            public static void WriteLineColor(string valor, ConsoleColor color)
+            {
+                Console.ForegroundColor = color;
+                Console.WriteLine(valor);
+                Console.ResetColor();
+            }
+
+            public static void WriteLineColor(string valor, ConsoleColor color, ConsoleColor colorPorDefecto)
+            {
+                Console.ForegroundColor = color;
+                Console.WriteLine(valor);
+                Console.ForegroundColor = colorPorDefecto;
+            }
+            #endregion
+
+            #region Funciones de comprobación (Comunes)
+
+            private static bool comprobarDNI(string dni)
+            {
+                if (Regex.Match(dni.Trim(), @"^[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][a-zA-Z]$").Success)
+                {
+                    int numeroDni = Convert.ToInt32(dni.Trim().Substring(0, 8));
+                    char letraDni = Convert.ToChar(dni.Trim().Substring(8));
+                    string juegoCaracteres = "TRWAGMYFPDXBNJZSQVHLCKE";
+                    int modulo = numeroDni % 23;
+                    char letra = juegoCaracteres[modulo];
+                    if (letraDni.Equals(letra))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
                 else
                 {
                     return false;
                 }
             }
-            else
+
+            #endregion
+
+            #region Funciones de cálculo (Comunes)
+
+            public static string calcularLetraDni(string dni)
             {
-                return false;
+                if (Regex.Match(dni.Trim(), @"^[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]$").Success)
+                {
+                    string juegoCaracteres = "TRWAGMYFPDXBNJZSQVHLCKE";
+                    int modulo = Convert.ToInt32(dni) % 23;
+                    char letra = juegoCaracteres[modulo];
+
+                    string dniBueno = dni + letra;
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine("La letra del dni {0} es {1}, por lo tanto el dni se ha cambiado a {2}", dni, letra, dniBueno);
+                    Console.ResetColor();
+                    return dniBueno.Trim();
+                }
+                else if (Regex.Match(dni.Trim(), @"^[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][a-zA-Z]$").Success)
+                {
+                    string juegoCaracteres = "TRWAGMYFPDXBNJZSQVHLCKE";
+
+                    int modulo = Convert.ToInt32(dni.Trim().Substring(0, 8)) % 23;
+                    char letra = juegoCaracteres[modulo];
+
+                    string dniBueno = dni.Trim().Substring(0, 8) + letra;
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine("La letra del dni {0} es {1}, por lo tanto el dni se ha cambiado a {2}", dni, letra, dniBueno);
+                    Console.ResetColor();
+                    return dniBueno.Trim();
+                }
+                else
+                {
+                    return null;
+                }
             }
-        }
 
-        #endregion
+            #endregion
 
-        #region Funciones de cálculo (Comunes)
+            #region Funciones de salida del programa (Comunes)
 
-        public static string calcularLetraDni(string dni)
-        {
-            if (Regex.Match(dni.Trim(), @"^[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]$").Success)
+            public static bool salir(string pregunta)
             {
-                string juegoCaracteres = "TRWAGMYFPDXBNJZSQVHLCKE";
-                int modulo = Convert.ToInt32(dni) % 23;
-                char letra = juegoCaracteres[modulo];
+                string respuesta;
+                Console.ResetColor();
+                Console.WriteLine("\n{0}: ", pregunta);
+                respuesta = Console.ReadLine().ToLower();
+                switch (respuesta)
+                {
+                    case "s":
+                        return true;
 
-                string dniBueno = dni + letra;
-
-                return dniBueno.Trim();
+                    default:
+                        return false;
+                }
             }
-            else
+
+            #endregion
+
+            #region Funciones de sonido consola (Comunes)
+
+            public static void emitirUnPitido(string mensaje)
             {
-                return null;
+                Console.Beep();
+                Console.WriteLine(mensaje);
             }
-        }
 
-        #endregion
-
-        #region Funciones de salida del programa (Comunes)
-
-        public bool salir(string pregunta)
-        {
-            string respuesta;
-            Console.ForegroundColor = ConsoleColor.Gray;
-            Console.WriteLine("\n{0}: ", pregunta);
-            respuesta = Console.ReadLine().ToLower();
-            switch (respuesta)
+            public static void emitirTresPitidos(string mensaje)
             {
-                case "s":
-                    return true;
-
-                default:
-                    return false;
+                Console.Beep(); Console.Beep(); Console.Beep();
+                Console.WriteLine(mensaje);
             }
-        }
 
-        #endregion
+            #endregion
 
-        #region Funciones de sonido consola (Comunes)
-
-        public static void emitirUnPitido(string mensaje)
-        {
-            Console.Beep();
-            Console.WriteLine(mensaje);
-        }
-
-        public static void emitirTresPitidos(string mensaje)
-        {
-            Console.Beep(); Console.Beep(); Console.Beep();
-            Console.WriteLine(mensaje);
-        }
-
-        #endregion
-
-    } // Clase estática de funciones comunes
+        } // Clase estática de funciones comunes
+    }
     #endregion
 
     #region Menús
-
-    #region Clases Base
-    abstract class Menu
+    namespace Menu
     {
-        string nombre;
-        int numDeItems;
-        List<string> items;
+        #region Clases Base
+        abstract class Menu
+        {
+            string nombre;
+            int numDeItems;
+            List<string> items;
 
-        #region Propiedades
-        public string Nombre
-        {
-            get
+            #region Propiedades
+            public string Nombre
             {
-                return nombre;
+                get
+                {
+                    return nombre;
+                }
             }
-        }
-        public int NumDeItems
-        {
-            get
+            public int NumDeItems
             {
-                return numDeItems;
+                get
+                {
+                    return numDeItems;
+                }
             }
-        }
-        public List<string> Items
-        {
-            get
+            public List<string> Items
             {
-                return items;
+                get
+                {
+                    return items;
+                }
             }
-        }
+            #endregion
+
+            public Menu(string nombre, int numDeItems)
+            {
+                this.nombre = nombre;
+                this.numDeItems = numDeItems;
+                items = new List<string>();
+
+                for (int i = 0; i < NumDeItems; i++)
+                {
+                    items.Add(LibreriaSharp.Comunes.Auxiliar.leerCadena("Escriba el item nº" + (i + 1)));
+                }
+            }
+
+            public abstract int elegirOpcion();
+        } // Clase base de todos los menús
+
+        abstract class MenuEstatico
+        {
+            string nombre;
+            int numDeItems;
+            List<string> items;
+
+            #region Propiedades
+            public string Nombre
+            {
+                get
+                {
+                    return nombre;
+                }
+            }
+            public int NumDeItems
+            {
+                get
+                {
+                    return numDeItems;
+                }
+            }
+            public List<string> Items
+            {
+                get
+                {
+                    return items;
+                }
+            }
+            #endregion
+
+            public MenuEstatico(string nombre)
+            {
+                this.nombre = nombre;
+                this.numDeItems = numDeItems;
+                items = new List<string>();
+            }
+
+            public abstract int elegirOpcion();
+        } // Clase base de todos los menús estáticos
         #endregion
 
-        public Menu(string nombre, int numDeItems)
+        #region Menús personalizados (Todos deben heredar de Menu)
+        class MenuCustom : Menu // Menú custom de prueba
         {
-            this.nombre = nombre;
-            this.numDeItems = numDeItems;
-            items = new List<string>();
-
-            for (int i = 0; i < NumDeItems; i++)
+            public MenuCustom(string nombre, int numDeItems) : base(nombre, numDeItems)
             {
-                items.Add(Auxiliar.leerCadena("Escriba el item nº" + (i + 1)));
             }
-        }
 
-        public abstract int elegirOpcion();
-    } // Clase base de todos los menús
+            public override int elegirOpcion()
+            {
+                Console.WriteLine("\n------{0}------\n", Nombre.ToUpper());
+                for (int i = 0; i < Items.Count; i++)
+                {
+                    Console.WriteLine("\t{0}. {1}", i + 1, Items[i]);
+                }
+                Console.WriteLine("---------------\n\n");
 
-    abstract class MenuEstatico
-    {
-        string nombre;
-        int numDeItems;
-        List<string> items;
+                int opcion = LibreriaSharp.Comunes.Auxiliar.leerEnteroPositivo("Elija la opción", 1, Items.Count);
 
-        #region Propiedades
-        public string Nombre
+                return opcion;
+            }
+        } // Clase que hereda de menú
+
+        class MenuBaseDeDatos : MenuEstatico // Menú de la base de datos
         {
-            get
+            public MenuBaseDeDatos(string nombre) : base(nombre)
             {
-                return nombre;
+                Items.Add("Libros");
+                Items.Add("Libros con volumen");
+                Items.Add("Revistas");
+                Items.Add("DVD's");
+                Items.Add("Salir");
             }
-        }
-        public int NumDeItems
-        {
-            get
+
+            public override int elegirOpcion()
             {
-                return numDeItems;
+                Console.WriteLine("\n\t------{0}------", Nombre.ToUpper());
+                for (int i = 0; i < Items.Count; i++)
+                {
+                    Console.WriteLine("\t\t{0}. {1}", i + 1, Items[i]);
+                }
+                Console.WriteLine("\t--------------------------\n\n");
+
+                int opcion = LibreriaSharp.Comunes.Auxiliar.leerEnteroPositivo("Elija la opción", 1, Items.Count);
+
+                return opcion;
             }
-        }
-        public List<string> Items
-        {
-            get
-            {
-                return items;
-            }
-        }
+        } // Clase que hereda de menú estático
         #endregion
-
-        public MenuEstatico(string nombre)
-        {
-            this.nombre = nombre;
-            this.numDeItems = numDeItems;
-            items = new List<string>();
-        }
-
-        public abstract int elegirOpcion();
-    } // Clase base de todos los menús estáticos
-    #endregion
-
-    #region Menús personalizados (Todos deben heredar de Menu)
-    class MenuCustom : Menu // Menú custom de prueba
-    {
-        public MenuCustom(string nombre, int numDeItems) : base(nombre, numDeItems)
-        {
-        }
-
-        public override int elegirOpcion()
-        {
-            Console.WriteLine("\n------{0}------\n", Nombre.ToUpper());
-            for (int i = 0; i < Items.Count; i++)
-            {
-                Console.WriteLine("\t{0}. {1}", i + 1, Items[i]);
-            }
-            Console.WriteLine("---------------\n\n");
-
-            int opcion = Auxiliar.leerEnteroPositivo("Elija la opción", 1, Items.Count);
-
-            return opcion;
-        }
-    } // Clase que hereda de menú
-
-    class MenuBaseDeDatos : MenuEstatico // Menú de la base de datos
-    {
-        public MenuBaseDeDatos(string nombre) : base(nombre)
-        {
-            Items.Add("Libros");
-            Items.Add("Libros con volumen");
-            Items.Add("Revistas");
-            Items.Add("DVD's");
-            Items.Add("Salir");
-        }
-
-        public override int elegirOpcion()
-        {
-            Console.WriteLine("\n\t------{0}------", Nombre.ToUpper());
-            for (int i = 0; i < Items.Count; i++)
-            {
-                Console.WriteLine("\t\t{0}. {1}", i + 1, Items[i]);
-            }
-            Console.WriteLine("\t--------------------------\n\n");
-
-            int opcion = Auxiliar.leerEnteroPositivo("Elija la opción", 1, Items.Count);
-
-            return opcion;
-        }
-    } // Clase que hereda de menú estático
-    #endregion
-
+    }
     #endregion
 
     #region Bases de Datos
-    public abstract class BaseDeDatos
+    namespace BD
     {
-        string nombre;
-        int numeroDeTablas;
-        List<ArrayList> bD;
-
-        #region Propiedades
-        public string Nombre
+        public abstract class BaseDeDatos
         {
-            get
+            string nombre;
+            int numeroDeTablas;
+            List<ArrayList> bD;
+
+            #region Propiedades
+            public string Nombre
             {
-                return nombre;
+                get
+                {
+                    return nombre;
+                }
             }
-        }
-        public int NumeroDeTablas
-        {
-            get
+            public int NumeroDeTablas
             {
-                return numeroDeTablas;
+                get
+                {
+                    return numeroDeTablas;
+                }
             }
-        }
-        public List<ArrayList> BD
-        {
-            get
+            public List<ArrayList> BD
             {
-                return bD;
+                get
+                {
+                    return bD;
+                }
             }
-        }
-        #endregion
+            #endregion
 
-        public BaseDeDatos(string nombre, int numeroDeTablas)
-        {
-            this.nombre = nombre;
-            this.numeroDeTablas = numeroDeTablas;
-
-            bD = new List<ArrayList>(numeroDeTablas);
-
-            Console.WriteLine("Creada la base de datos {0} con {1} tabla(s)", Nombre, NumeroDeTablas);
-        }
-
-        public abstract List<ArrayList> devuelveTodasLasTablas();
-
-    } // Clase para crear Bases de Datos Nuevas
-    
-    public class BaseDeDatosBiblioteca : BaseDeDatos
-    {/*
-        #region Tablas de la biblioteca
-        ArrayList libros;
-        ArrayList librosVol;
-        ArrayList revistas;
-        ArrayList dvds;
-        #endregion
-
-        #region Propiedades
-        public ArrayList Libros
-        {
-            get
+            public BaseDeDatos(string nombre, int numeroDeTablas)
             {
-                return libros;
+                this.nombre = nombre;
+                this.numeroDeTablas = numeroDeTablas;
+
+                bD = new List<ArrayList>(numeroDeTablas);
+
+                Console.WriteLine("Creada la base de datos {0} con {1} tabla(s)", Nombre, NumeroDeTablas);
             }
-        }
-        public ArrayList LibrosVol
+
+            public abstract List<ArrayList> devuelveTodasLasTablas();
+
+        } // Clase para crear Bases de Datos Nuevas
+
+        /*public class BaseDeDatosBiblioteca : BaseDeDatos
         {
-            get
+            #region Tablas de la biblioteca
+            ArrayList libros;
+            ArrayList librosVol;
+            ArrayList revistas;
+            ArrayList dvds;
+            #endregion
+
+            #region Propiedades
+            public ArrayList Libros
             {
-                return librosVol;
+                get
+                {
+                    return libros;
+                }
             }
-        }
-        public ArrayList Revistas
-        {
-            get
+            public ArrayList LibrosVol
             {
-                return revistas;
+                get
+                {
+                    return librosVol;
+                }
             }
-        }
-        public ArrayList Dvds
-        {
-            get
+            public ArrayList Revistas
             {
-                return dvds;
+                get
+                {
+                    return revistas;
+                }
             }
-        }
-        #endregion
-
-        public BaseDeDatosBiblioteca(string nombre, int numeroDeTablas) : base(nombre, numeroDeTablas)
-        {
-            libros = new ArrayList();
-            librosVol = new ArrayList();
-            revistas = new ArrayList();
-            dvds = new ArrayList();
-
-            base.BD.Add(Libros);
-            base.BD.Add(LibrosVol);
-            base.BD.Add(Revistas);
-            base.BD.Add(Dvds);
-        }
-
-        #region Inserciones
-        public void añadirLibro(FichaLibro libro)
-        {
-            base.BD[0].Add(libro);
-        }
-
-        public void añadirLibroVol(FichaLibroVol libroVol)
-        {
-            base.BD[1].Add(libroVol);
-        }
-
-        public void añadirRevista(FichaRevista revista)
-        {
-            base.BD[2].Add(revista);
-        }
-
-        public void añadirDvd(FichaDVD dvd)
-        {
-            base.BD[3].Add(dvd);
-        }
-        #endregion
-
-        #region Consultas
-        public int cuentaLibros()
-        {
-            int i = 0;
-            var consultaLibros = from FichaLibro libros in BD[0]
-                                 select libros;
-
-            foreach (FichaLibro l in consultaLibros)i++;
-
-            return i;
-        }
-        public int cuentaLibrosVol()
-        {
-            int i = 0;
-            var consultaLibrosVol = from FichaLibroVol librosVol in BD[1]
-                                 select librosVol;
-
-            foreach (FichaLibroVol lv in consultaLibrosVol) i++;
-
-            return i;
-        }
-        public int cuentaRevistas()
-        {
-            int i = 0;
-            var consultaRevistas = from FichaRevista revistas in BD[2]
-                                 select revistas;
-
-            foreach (FichaRevista r in consultaRevistas) i++;
-
-            return i;
-        }
-        public int cuentaDvds()
-        {
-            int i = 0;
-            var consultaDvds = from FichaDVD dvds in BD[3]
-                                 select dvds;
-
-            foreach (FichaDVD d in consultaDvds) i++;
-
-            return i;
-        }
-
-        public void imprimirLibros()
-        {
-            var consultaLibros = from FichaLibro libros in BD[0]
-                                 select libros;
-
-            foreach (FichaLibro f in consultaLibros)
+            public ArrayList Dvds
             {
-                Console.ForegroundColor = ConsoleColor.White;
-                f.imprimir();
-                Console.ForegroundColor = ConsoleColor.Gray;
+                get
+                {
+                    return dvds;
+                }
             }
-        }
-        public void imprimirLibrosVol()
-        {
-            var consultaLibrosVol = from FichaLibroVol librosVol in BD[1]
-                                    select librosVol;
+            #endregion
 
-            foreach (FichaLibroVol f in consultaLibrosVol)
+            public BaseDeDatosBiblioteca(string nombre, int numeroDeTablas) : base(nombre, numeroDeTablas)
             {
-                Console.ForegroundColor = ConsoleColor.White;
-                f.imprimir();
-                Console.ForegroundColor = ConsoleColor.Gray;
-            }
-        }
-        public void imprimirRevistas()
-        {
-            var consultaRevistas = from FichaRevista revistas in BD[2]
-                                   select revistas;
+                libros = new ArrayList();
+                librosVol = new ArrayList();
+                revistas = new ArrayList();
+                dvds = new ArrayList();
 
-            foreach (FichaRevista f in consultaRevistas)
+                base.BD.Add(Libros);
+                base.BD.Add(LibrosVol);
+                base.BD.Add(Revistas);
+                base.BD.Add(Dvds);
+            }
+
+            #region Inserciones
+            public void añadirLibro(FichaLibro libro)
             {
-                Console.ForegroundColor = ConsoleColor.White;
-                f.imprimir();
-                Console.ForegroundColor = ConsoleColor.Gray;
+                base.BD[0].Add(libro);
             }
-        }
-        public void imprimirDvds()
-        {
-            var consultaDvds = from FichaDVD dvds in BD[3]
-                               select dvds;
 
-            foreach (FichaDVD f in consultaDvds)
+            public void añadirLibroVol(FichaLibroVol libroVol)
             {
-                Console.ForegroundColor = ConsoleColor.White;
-                f.imprimir();
-                Console.ForegroundColor = ConsoleColor.Gray;
+                base.BD[1].Add(libroVol);
             }
-        }
-        #endregion
 
-        public override List<ArrayList> devuelveTodasLasTablas()
-        {
-            return base.BD;
-        }
+            public void añadirRevista(FichaRevista revista)
+            {
+                base.BD[2].Add(revista);
+            }
 
-    */} // Base de datos de la biblioteca (Comentada)
+            public void añadirDvd(FichaDVD dvd)
+            {
+                base.BD[3].Add(dvd);
+            }
+            #endregion
+
+            #region Consultas
+            public int cuentaLibros()
+            {
+                int i = 0;
+                var consultaLibros = from FichaLibro libros in BD[0]
+                                     select libros;
+
+                foreach (FichaLibro l in consultaLibros)i++;
+
+                return i;
+            }
+            public int cuentaLibrosVol()
+            {
+                int i = 0;
+                var consultaLibrosVol = from FichaLibroVol librosVol in BD[1]
+                                     select librosVol;
+
+                foreach (FichaLibroVol lv in consultaLibrosVol) i++;
+
+                return i;
+            }
+            public int cuentaRevistas()
+            {
+                int i = 0;
+                var consultaRevistas = from FichaRevista revistas in BD[2]
+                                     select revistas;
+
+                foreach (FichaRevista r in consultaRevistas) i++;
+
+                return i;
+            }
+            public int cuentaDvds()
+            {
+                int i = 0;
+                var consultaDvds = from FichaDVD dvds in BD[3]
+                                     select dvds;
+
+                foreach (FichaDVD d in consultaDvds) i++;
+
+                return i;
+            }
+
+            public void imprimirLibros()
+            {
+                var consultaLibros = from FichaLibro libros in BD[0]
+                                     select libros;
+
+                foreach (FichaLibro f in consultaLibros)
+                {
+                    Console.ForegroundColor = ConsoleColor.White;
+                    f.imprimir();
+                    Console.ResetColor();
+                }
+            }
+            public void imprimirLibrosVol()
+            {
+                var consultaLibrosVol = from FichaLibroVol librosVol in BD[1]
+                                        select librosVol;
+
+                foreach (FichaLibroVol f in consultaLibrosVol)
+                {
+                    Console.ForegroundColor = ConsoleColor.White;
+                    f.imprimir();
+                    Console.ResetColor();
+                }
+            }
+            public void imprimirRevistas()
+            {
+                var consultaRevistas = from FichaRevista revistas in BD[2]
+                                       select revistas;
+
+                foreach (FichaRevista f in consultaRevistas)
+                {
+                    Console.ForegroundColor = ConsoleColor.White;
+                    f.imprimir();
+                    Console.ResetColor();
+                }
+            }
+            public void imprimirDvds()
+            {
+                var consultaDvds = from FichaDVD dvds in BD[3]
+                                   select dvds;
+
+                foreach (FichaDVD f in consultaDvds)
+                {
+                    Console.ForegroundColor = ConsoleColor.White;
+                    f.imprimir();
+                    Console.ResetColor();
+                }
+            }
+            #endregion
+
+            public override List<ArrayList> devuelveTodasLasTablas()
+            {
+                return base.BD;
+            }
+
+
+        } */// Base de datos de la biblioteca (Comentada)
+    }
     #endregion
 
 }
