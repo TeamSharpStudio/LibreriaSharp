@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -705,6 +706,242 @@ namespace LibreriaSharp
             }
             #endregion
 
+            #region Fecha
+            public static string leerFecha(string mensaje)
+            {
+                string cadena;
+                bool cadenaOk = false;
+
+                #region Validación del mensaje
+                do
+                {
+                    Console.Write("{0}: ", mensaje);
+                    cadena = Console.ReadLine();
+
+
+                    if (cadena.Equals(""))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("La fecha no puede estar vacía.");
+                        Console.ResetColor();
+                        cadenaOk = false;
+                    }
+                    else
+                    {
+                        if (Regex.IsMatch(cadena.Trim(), @"^[0-9][0-9]/[0-9][0-9]/[0-9][0-9][0-9][0-9]$"))
+                        {
+                            string[] fecha = cadena.Split('/');
+                            bool diaOk = false, mesOk = false;
+                            cadenaOk = false;
+                            if (Convert.ToInt32(fecha[0]) < 32 && Convert.ToInt32(fecha[0]) > 0)
+                            {
+                                diaOk = true;
+                            }
+                            else
+                            {
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.WriteLine("El día es incorrecto (Los días van del 1 al 31)");
+                                Console.ResetColor();
+                            }
+
+                            if (Convert.ToInt32(fecha[1]) < 13 && Convert.ToInt32(fecha[1]) > 0)
+                            {
+                                mesOk = true;
+                            }
+                            else
+                            {
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.WriteLine("El mes es incorrecto (Los meses van del 1 al 12)");
+                                Console.ResetColor();
+                            }
+
+                            if (diaOk && mesOk)
+                            {
+                                cadenaOk = true;
+                            }
+                            else
+                            {
+                                cadenaOk = false;
+                            }
+                        }
+
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("El formato de la fecha es incorrecto; El formato correcto es: dd/mm/aaaa");
+                            Console.ResetColor();
+                        }
+                    }
+                } while (!cadenaOk) ;
+                #endregion
+
+                    return cadena;
+            }
+            public static string leerFecha(string mensaje, int añoMin)
+            {
+                string cadena;
+                bool cadenaOk = false;
+
+                #region Validación del mensaje
+                do
+                {
+                    Console.Write("{0}: ", mensaje);
+                    cadena = Console.ReadLine();
+
+                    if (cadena.Equals(""))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("La fecha no puede estar vacía.");
+                        Console.ResetColor();
+                        cadenaOk = false;
+                    }
+                    else
+                    {
+                        if (Regex.IsMatch(cadena.Trim(), @"^[0-9][0-9]/[0-9][0-9]/[0-9][0-9][0-9][0-9]$"))
+                        {
+                            #region Validación de meses, dias años
+                            string[] fecha = cadena.Split('/');
+                            if (Convert.ToInt32(fecha[2]) >= añoMin && Convert.ToInt32(fecha[2]) >= añoMin)
+                            {
+                                bool diaOk = false, mesOk = false;
+                                cadenaOk = false;
+                                if (Convert.ToInt32(fecha[0]) < 32 && Convert.ToInt32(fecha[0]) > 0)
+                                {
+                                    diaOk = true;
+                                }
+                                else
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    Console.WriteLine("El día es incorrecto (Los días van del 1 al 31)");
+                                    Console.ResetColor();
+                                }
+
+                                if (Convert.ToInt32(fecha[1]) < 13 && Convert.ToInt32(fecha[1]) > 0)
+                                {
+                                    mesOk = true;
+                                }
+                                else
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    Console.WriteLine("El mes es incorrecto (Los meses van del 1 al 12)");
+                                    Console.ResetColor();
+                                }
+
+                                if (diaOk && mesOk)
+                                {
+                                    cadenaOk = true;
+                                }
+                                else
+                                {
+                                    cadenaOk = false;
+                                }
+                                
+                            }
+                            else
+                            {
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.WriteLine("El año mínimo es: {0}",añoMin);
+                                Console.ResetColor();
+                                cadenaOk = false;
+                            }
+                            #endregion
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("El formato de la fecha es incorrecto; El formato correcto es: dd/mm/aaaa (Asegúrate de rellenar con ceros)");
+                            Console.ResetColor();
+                        }
+                    }
+                } while (!cadenaOk);
+                #endregion
+
+                return cadena;
+
+            }
+            public static string leerFecha(string mensaje, int añoMin, int añoMax)
+            {
+                string cadena;
+                bool cadenaOk = false;
+
+                #region Validación de la fecha
+                do
+                {
+                    Console.Write("{0}: ", mensaje);
+                    cadena = Console.ReadLine();
+
+                    if (cadena.Equals(""))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("La fecha no puede estar vacía.");
+                        Console.ResetColor();
+                        cadenaOk = false;
+                    }
+                    else
+                    {
+                        if (Regex.IsMatch(cadena.Trim(), @"^[0-9][0-9]/[0-9][0-9]/[0-9][0-9][0-9][0-9]$"))
+                        {
+                            #region Validación de meses, dias años
+                            string[] fecha = cadena.Split('/');
+                            if (Convert.ToInt32(fecha[2]) >= añoMin && Convert.ToInt32(fecha[2]) <= añoMax)
+                            {
+                                bool diaOk = false, mesOk = false;
+                                cadenaOk = false;
+                                if (Convert.ToInt32(fecha[0]) < 32 && Convert.ToInt32(fecha[0]) > 0)
+                                {
+                                    diaOk = true;
+                                }
+                                else
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    Console.WriteLine("El día es incorrecto (Los días van del 1 al 31)");
+                                    Console.ResetColor();
+                                }
+
+                                if(Convert.ToInt32(fecha[1]) < 13 && Convert.ToInt32(fecha[1]) > 0)
+                                {
+                                    mesOk = true;
+                                }
+                                else
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    Console.WriteLine("El mes es incorrecto (Los meses van del 1 al 12)");
+                                    Console.ResetColor();
+                                }
+
+                                if (diaOk && mesOk)
+                                {
+                                    cadenaOk = true;
+                                }
+                                else
+                                {
+                                    cadenaOk = false;
+                                }
+                                #endregion
+                            }
+                            else
+                            {
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.WriteLine("El año mínimo es: {0}, el máximo es: {1}", añoMin, añoMax);
+                                Console.ResetColor();
+                                cadenaOk = false;
+                            }
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("El formato de la fecha es incorrecto; El formato correcto es: dd/mm/aaaa (Asegúrate de rellenar con ceros)");
+                            Console.ResetColor();
+                        }
+                    }
+                } while (!cadenaOk);
+                #endregion
+
+                return cadena;
+
+            }
+            #endregion
+
             #endregion
 
             #region Funciones de salida por pantalla (Comunes)
@@ -720,6 +957,13 @@ namespace LibreriaSharp
                 Console.ForegroundColor = color;
                 Console.WriteLine(valor);
                 Console.ForegroundColor = colorPorDefecto;
+            }
+
+            public static decimal truncarDecimal(decimal value, int precision)
+            {
+                decimal step = (decimal)Math.Pow(10, precision);
+                int tmp = (int)Math.Truncate(step * value);
+                return tmp / step;
             }
             #endregion
 
