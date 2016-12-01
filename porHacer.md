@@ -1,6 +1,6 @@
 # Por hacer
 - [X] Hacer privado comprobarDNI
-- [ ] Validar introducirCadena string nombre (solo letras)
+- [ ] Validar introducirCadena string nombre (solo letras) (Añadir sobrecarga)
 - [ ] Nueva función para validar fecha
 - [ ] Añadir diferentes namespace
 - [ ] ResetColor en funciones que alteren los colores de consola
