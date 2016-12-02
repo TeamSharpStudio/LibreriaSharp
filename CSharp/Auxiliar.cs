@@ -942,6 +942,33 @@ namespace LibreriaSharp
             }
             #endregion
 
+            #region Tabla de multiplicar
+            public static void tablaDeMultiplicar(int cadaCuanto)
+            {
+                int numero = Auxiliar.leerEnteroPositivo("Escribe el número a multiplicar");
+                int numeroDeVeces = Auxiliar.leerEnteroPositivo("Escribe el número de veces a multiplicar");
+                if (numeroDeVeces >= 20)
+                {
+                    for (int i = 1; i <= numeroDeVeces; i++)
+                    {
+                        Console.WriteLine("{0} * {1} = {2}", numero, i, numero*i);
+                        if (i % cadaCuanto == 0)
+                        {
+                            Console.Write("Pulse intro para continuar...");
+                            Console.ReadLine();
+                        }
+                    }
+                }
+                else
+                {
+                    for (int i = 1; i <= numeroDeVeces; i++)
+                    {
+                        Console.WriteLine("{0} * {1} = {2}", numero, i, numero * i);
+                    }
+                }
+            }
+            #endregion
+
             #endregion
 
             #region Funciones de salida por pantalla (Comunes)
