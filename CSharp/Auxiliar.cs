@@ -1,4 +1,12 @@
-﻿using System;
+﻿/*
+* PRÁCTICA.............: Práctica 0.
+* NOMBRE y APELLIDOS...: Sergio Lucena Fernández
+* CURSO y GRUPO........: 2º Desarrollo de Interfaces
+* TÍTULO de la PRÁCTICA: Uso del IDE V.Studio I.
+* FECHA de ENTREGA.....: 30 de Noviembre de 2016
+*/
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
@@ -316,6 +324,160 @@ namespace LibreriaSharp
             }
             #endregion
 
+            #region Entero
+            public static int leerEntero(string mensaje)
+            {
+                string cadena;
+                bool cadenaOk = false;
+                #region Validación del mensaje
+                do
+                {
+                    Console.Write("{0}: ", mensaje);
+                    cadena = Console.ReadLine();
+                    if (cadena.Equals(""))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("El numero no puede estar vacío.");
+                        Console.ResetColor();
+                        cadenaOk = false;
+                    }
+                    #region Convertir a entero
+                    try
+                    {
+                        Convert.ToInt32(cadena);
+                        cadenaOk = true;
+                    }
+                    catch (FormatException)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("El valor debe de ser numérico.");
+                        Console.ResetColor();
+                        cadenaOk = false;
+                    }
+                    catch (OverflowException)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("El valor es demasiado grande.");
+                        Console.ResetColor();
+                        cadenaOk = false;
+                    }
+                    #endregion
+
+                } while (!cadenaOk);
+                #endregion
+
+                return Convert.ToInt32(cadena);
+            }
+
+            public static int leerEntero(string mensaje, int min, int max)
+            {
+                string cadena;
+                bool cadenaOk = false;
+                #region Validación del mensaje
+                do
+                {
+                    Console.Write("{0}: ", mensaje);
+                    cadena = Console.ReadLine();
+                    if (cadena.Equals(""))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("El numero no puede estar vacío.");
+                        Console.ResetColor();
+                        cadenaOk = false;
+                    }
+                    #region Convertir a entero
+                    try
+                    {
+                        Convert.ToInt32(cadena);
+                        if (Convert.ToInt32(cadena) >= min && Convert.ToInt32(cadena) <= max)
+                        {
+                            cadenaOk = true;
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("El valor debe de estar comprendido entre {0} y {1}.", min, max);
+                            Console.ResetColor();
+                            cadenaOk = false;
+                        }
+                    }
+                    catch (FormatException)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("El valor debe de ser numérico.");
+                        Console.ResetColor();
+                        cadenaOk = false;
+                    }
+                    catch (OverflowException)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("El valor es demasiado grande.");
+                        Console.ResetColor();
+                        cadenaOk = false;
+                    }
+                    #endregion
+
+                } while (!cadenaOk);
+                #endregion
+
+                return Convert.ToInt32(cadena);
+            }
+
+            public static int leerEntero(string mensaje, int min, int max, string mensajeDeError)
+            {
+                string cadena;
+                bool cadenaOk = false;
+                #region Validación del mensaje
+                do
+                {
+                    Console.Write("{0}: ", mensaje);
+                    cadena = Console.ReadLine();
+                    if (cadena.Equals(""))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("El numero no puede estar vacío");
+                        Console.ResetColor();
+                        cadenaOk = false;
+                    }
+                    #region Convertir a entero
+                    try
+                    {
+                        Convert.ToInt32(cadena);
+                        if (Convert.ToInt32(cadena) >= min && Convert.ToInt32(cadena) <= max)
+                        {
+                            cadenaOk = true;
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("{0}; Las opciones van del {1} al {2}.", mensajeDeError, min, max);
+                            Console.ResetColor();
+                            cadenaOk = false;
+                        }
+                    }
+                    catch (FormatException)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("El valor debe de ser numérico.");
+                        Console.ResetColor();
+                        cadenaOk = false;
+                    }
+                    catch (OverflowException)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("El valor es demasiado grande.");
+                        Console.ResetColor();
+                        cadenaOk = false;
+                    }
+                    #endregion
+
+                } while (!cadenaOk);
+                #endregion
+
+                return Convert.ToInt32(cadena);
+            }
+            #endregion
+
             #region Double Positivo
 
             public static double leerDoublePositivo(string mensaje)
@@ -483,6 +645,177 @@ namespace LibreriaSharp
                 #endregion Validación del mensaje
 
                 return Math.Abs(Convert.ToDouble(cadena));
+            }
+
+            #endregion
+
+            #region Double Positivo
+
+            public static double leerDouble(string mensaje)
+            {
+                string cadena;
+                bool cadenaOk = false;
+
+                #region Validación del mensaje
+
+                do
+                {
+                    Console.Write("{0}: ", mensaje);
+                    cadena = Console.ReadLine();
+                    if (cadena.Equals(""))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("El numero no puede estar vacío.");
+                        Console.ResetColor();
+                        cadenaOk = false;
+                    }
+
+                    #region Convertir a entero
+
+                    try
+                    {
+                        Convert.ToDouble(cadena);
+                        cadenaOk = true;
+                    }
+                    catch (FormatException)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("El valor debe de ser numérico.");
+                        Console.ResetColor();
+                        cadenaOk = false;
+                    }
+                    catch (OverflowException)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("El valor es demasiado grande.");
+                        Console.ResetColor();
+                        cadenaOk = false;
+                    }
+
+                    #endregion Convertir a entero
+                } while (!cadenaOk);
+
+                #endregion Validación del mensaje
+
+                return Convert.ToDouble(cadena);
+            }
+
+            public static double leerDouble(string mensaje, double min, double max)
+            {
+                string cadena;
+                bool cadenaOk = false;
+
+                #region Validación del mensaje
+
+                do
+                {
+                    Console.Write("{0}: ", mensaje);
+                    cadena = Console.ReadLine();
+                    if (cadena.Equals(""))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("El numero no puede estar vacío.");
+                        Console.ResetColor();
+                        cadenaOk = false;
+                    }
+
+                    #region Convertir a entero
+
+                    try
+                    {
+                        Convert.ToDouble(cadena);
+                        if (Convert.ToInt32(cadena) >= min && Convert.ToDouble(cadena) <= max)
+                        {
+                            cadenaOk = true;
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("El valor debe de estar comprendido entre {0} y {1}.", min, max);
+                            Console.ResetColor();
+                            cadenaOk = false;
+                        }
+                    }
+                    catch (FormatException)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("El valor debe de ser numérico.");
+                        Console.ResetColor();
+                        cadenaOk = false;
+                    }
+                    catch (OverflowException)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("El valor es demasiado grande.");
+                        Console.ResetColor();
+                        cadenaOk = false;
+                    }
+
+                    #endregion Convertir a entero
+                } while (!cadenaOk);
+
+                #endregion Validación del mensaje
+
+                return Convert.ToDouble(cadena);
+            }
+
+            public static double leerDouble(string mensaje, double min, double max, string mensajeDeError)
+            {
+                string cadena;
+                bool cadenaOk = false;
+
+                #region Validación del mensaje
+
+                do
+                {
+                    Console.Write("{0}: ", mensaje);
+                    cadena = Console.ReadLine();
+                    if (cadena.Equals(""))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("El numero no puede estar vacío");
+                        Console.ResetColor();
+                        cadenaOk = false;
+                    }
+
+                    #region Convertir a entero
+
+                    try
+                    {
+                        Convert.ToDouble(cadena);
+                        if (Convert.ToInt32(cadena) >= min && Convert.ToDouble(cadena) <= max)
+                        {
+                            cadenaOk = true;
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("{0}; Las opciones van del {1} al {2}.", mensajeDeError, min, max);
+                            Console.ResetColor();
+                            cadenaOk = false;
+                        }
+                    }
+                    catch (FormatException)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("El valor debe de ser numérico.");
+                        Console.ResetColor();
+                        cadenaOk = false;
+                    }
+                    catch (OverflowException)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("El valor es demasiado grande.");
+                        Console.ResetColor();
+                        cadenaOk = false;
+                    }
+
+                    #endregion Convertir a entero
+                } while (!cadenaOk);
+
+                #endregion Validación del mensaje
+
+                return Convert.ToDouble(cadena);
             }
 
             #endregion
@@ -1065,7 +1398,7 @@ namespace LibreriaSharp
             {
                 string respuesta;
                 Console.ResetColor();
-                Console.WriteLine("\n{0}: ", pregunta);
+                Console.Write("\n{0}: ", pregunta);
                 respuesta = Console.ReadLine().ToLower();
                 switch (respuesta)
                 {
