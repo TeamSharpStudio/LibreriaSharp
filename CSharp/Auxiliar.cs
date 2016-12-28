@@ -12,7 +12,6 @@
 
 */
 
-using Practica_5;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -317,7 +316,7 @@ namespace LibreriaSharp
                 return listaDeDecimales;
             }
 
-            public static List<decimal> leerCadenaCrearListaDecimal(Grupo grupo)
+            /*public static List<decimal> leerCadenaCrearListaDecimal(Grupo grupo)
             {
                 int tamaño = grupo.NumAsignaturas;
                 decimal numero;
@@ -350,7 +349,7 @@ namespace LibreriaSharp
                 #endregion
 
                 return listaDeDecimales;
-            }
+            }*/
             #endregion
 
             #region Entero Positivo
@@ -1269,6 +1268,56 @@ namespace LibreriaSharp
                 else
                 {
                     return false;
+                }
+            }
+
+            private static bool comprobarNombre(string nombre)
+            {
+                if (String.IsNullOrWhiteSpace(nombre))
+                {
+                    return false;
+                }
+                else if (!Regex.IsMatch(nombre, @"^[\p{Lu}\p{Ll} ]*$"))
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+
+            private static bool comprobarNumero(int numero)
+            {
+                if (String.IsNullOrWhiteSpace(Convert.ToString(numero)))
+                {
+                    return false;
+                }
+                else if (!Regex.IsMatch(Convert.ToString(numero), @"^[0-9]*$"))
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+
+            private static bool comprobarFecha(string fecha)
+            {
+                if (String.IsNullOrWhiteSpace(fecha))
+                {
+                    return false;
+                }
+                else if (!Regex.IsMatch(fecha, @"^[0-9][0-9]/[0-9][0-9]/[0-9][0-9][0-9][0-9]$"))
+                {
+                    return false;
+                }
+                else
+                {
+                    string[] fechaDesglosada = fecha.Split('/');
+                    if (Convert.ToInt32(fechaDesglosada[0]) <= 31 && Convert.ToInt32(fechaDesglosada[1]) <= 12 && Convert.ToInt32(fechaDesglosada[2]) <= Convert.ToInt32(DateTime.Now.Year) && Convert.ToInt32(fechaDesglosada[2]) >= 1920) return true;
+                    else return false;
                 }
             }
 
